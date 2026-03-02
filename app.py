@@ -6,8 +6,30 @@ app = Flask(__name__)
 # Database Connection Function
 def get_db_connection():
     conn = sqlite3.connect('database.db')
-    conn.row_factory = sqlite3.Row   # Allows accessing columns by name
+    conn.row_factory = sqlite3.Row 
+    # Allows accessing columns by name
+    conn.execute("PRAGMA foreign_keys = ON")
+    Good. Clear question.
+
+You are asking about this line:
+
+conn.execute("PRAGMA foreign_keys = ON")
+📍 Where to Paste It
+
+Inside your get_db_connection() function.
+
+It should look like this:
+
+def get_db_connection():
+    conn = sqlite3.connect('database.db')
+    conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA foreign_keys = ON")
     return conn
+
+#Every time you connect to SQLite,Foreign keys are OFF by default.
+# SQLite does NOT enforce foreign key rules unless you enable them.So if you don’t add this:
+#ON DELETE CASCADE will NOT work, Tasks may remain even if user is deleted
+    
 
 # Create Users Table
 def init_db():
