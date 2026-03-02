@@ -10,23 +10,30 @@ def get_db_connection():
     return conn
 
 # Create Users Table
-
-def create_users_table():
+def init_db():
     conn = get_db_connection()
 
-    conn.execute('''
+    conn.execute("""
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT UNIQUE NOT NULL,
-            password TEXT NOT NULL
-        )
-    ''')
+            username TEXT NOT NULL,
+            email TEXT NOT NULL
+        );
+    """)
+
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS tasks (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            description TEXT,
+            user_id INTEGER NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+        );
+    """)
 
     conn.commit()
     conn.close()
-
-
-create_users_table()
 
 
 
