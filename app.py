@@ -9,21 +9,6 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row 
     # Allows accessing columns by name
     conn.execute("PRAGMA foreign_keys = ON")
-    Good. Clear question.
-
-You are asking about this line:
-
-conn.execute("PRAGMA foreign_keys = ON")
-📍 Where to Paste It
-
-Inside your get_db_connection() function.
-
-It should look like this:
-
-def get_db_connection():
-    conn = sqlite3.connect('database.db')
-    conn.row_factory = sqlite3.Row
-    conn.execute("PRAGMA foreign_keys = ON")
     return conn
 
 #Every time you connect to SQLite,Foreign keys are OFF by default.
